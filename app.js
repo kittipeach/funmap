@@ -97,12 +97,10 @@ var map = L.map('map', { zoomControl: false, minZoom: 5, maxZoom: 19, zoomSnap: 
   .setView([13.765, 100.555], 11);
 map.attributionControl.setPrefix(false);
 ['base', 'rings', 'rays'].forEach(function (n, i) { map.createPane(n).style.zIndex = [150, 410, 420][i]; map.getPane(n).style.pointerEvents = 'none'; });
-var TILE = {
-  light: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
-  dark: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png'
-};
-var ATTR = '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions" target="_blank" rel="noopener">CARTO</a>';
-var tiles = L.tileLayer(TILE[theme()], { subdomains: 'abcd', maxZoom: 20, attribution: ATTR }).addTo(map);
+var TILE_URL = 'https://tile.openstreetmap.org/{z}/{x}/{y}.png';
+var ATTR = '&copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors';
+var tiles = L.tileLayer(TILE_URL, { maxZoom: 19, attribution: ATTR }).addTo(map);
+app.classList.toggle('map-dark', theme() === 'dark');
 var tileOK = false, tileErr = 0, fallbackOn = false, baseLayer = null, geoLabels = L.layerGroup().addTo(map), baseRenderer = null;
 tiles.on('tileload', function () { if (!tileOK) { tileOK = true; setFallback(false); } });
 tiles.on('tileerror', function () { tileErr++; if (!tileOK && tileErr >= 2) setFallback(true); });
@@ -163,7 +161,7 @@ function updateGeoLabels() {
   }
 }
 function onThemeChange() {
-  tiles.setUrl(TILE[theme()]);
+  app.classList.toggle('map-dark', theme() === 'dark');
   if (baseLayer) { var st = baseStyle(); baseLayer.eachLayer(function (l) { l.setStyle(st); }); }
   restyleOverlays();
 }

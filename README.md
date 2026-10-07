@@ -4,7 +4,7 @@
 
 - หน้าเว็บเป็นไฟล์ static ทั้งหมด วางบน GitHub Pages หรือโฮสต์ HTTPS ใดก็ได้
 - ข้อมูลจุดและรายชื่อสมาชิกอยู่ใน Supabase หลัง Row Level Security ไม่มีข้อมูลจุดอยู่ใน repo นี้
-- แผนที่ฐาน: OpenStreetMap ผ่าน CARTO basemaps, ค้นหาสถานที่: Nominatim
+- แผนที่ฐาน: OpenStreetMap, ค้นหาสถานที่: Nominatim
 
 ## ติดตั้ง
 
